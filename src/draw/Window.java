@@ -2,6 +2,7 @@ package draw;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 /**
  * @Author mkbk
@@ -19,6 +20,7 @@ public class Window extends JFrame {
         mp = new MyPanel();
         this.add(mp);
         this.setSize(800, 600);
+        this.addKeyListener(mp);//给窗口添加监听器，使其拥有监听功能
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }

@@ -8,6 +8,36 @@ package draw;
 public class Tank {
     private int xIndex;
     private int yIndex;
+    private Direction direction = Direction.UP;//坦克初始方向
+    private int speed = 5;
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void moveUP() {
+        yIndex -= speed;
+    }
+
+    public void moveDown() {
+        yIndex += speed;
+    }
+
+    public void moveRight() {
+        xIndex += speed;
+    }
+
+    public void moveLeft() {
+        xIndex -= speed;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
 
     public Tank(int xIndex, int yIndex) {
         this.xIndex = xIndex;
