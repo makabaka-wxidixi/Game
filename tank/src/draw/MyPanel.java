@@ -34,8 +34,10 @@ class MyPanel extends JPanel implements KeyListener, Runnable {
         g.fillRect(0, 0, 800, 600);
         drawTank(hero.getxIndex(), hero.getyIndex(), g, hero.getDirection(), Army.HERO);
 
-        if (hero.getBullet() != null && hero.getBullet().isAlive == true) {
-            drawBullet(hero.getBullet().getX(), hero.getBullet().getY(), g, hero.getDirection());
+        if (!hero.bullets.isEmpty()) {
+            for (Bullet bullet : Hero.bullets) {
+                drawBullet(bullet.getX(), bullet.getY(), g, bullet.getDirection());
+            }
         }
 
         for (int i = 0; i < enemyTankes.size(); i++) {//循环画出敌方坦克
@@ -169,7 +171,7 @@ class MyPanel extends JPanel implements KeyListener, Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
