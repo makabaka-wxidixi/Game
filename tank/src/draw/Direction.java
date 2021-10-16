@@ -6,25 +6,25 @@ package draw;
  * @Create 2021-10-09 22:49
  */
 public enum Direction {
-    UP(1, "UP"),
-    DOWN(2, "DOWN"),
-    LEFT(3, "LEFT"),
-    RIGHT(4, "RIGHT");
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT;
 
-    private int value;
-    private String direction;
-
-    Direction(int value, String direction) {
-        this.value = value;
-        this.direction = direction;
+    public static Direction getRandomDirection() {
+        int i = (int) (Math.random() * 4 + 1);//得到1,2,3,4其中的一个数据
+        switch (i) {
+            case 1:
+                return UP;
+            case 2:
+                return DOWN;
+            case 3:
+                return RIGHT;
+            case 4:
+                return LEFT;
+            default:
+                System.out.println("Direction类中出现异常");
+                return null;
+        }
     }
-
-    public int getValue() {
-        return value;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
 }

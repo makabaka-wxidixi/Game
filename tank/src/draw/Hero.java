@@ -9,11 +9,11 @@ import java.util.List;
  * @Create 2021-10-09 22:14
  */
 public class Hero extends Tank {
-    public static List<Bullet> bullets = new ArrayList<>();//存放子弹
+    public static List<Bullet> bullets = new ArrayList<>();//存放打出来的子弹
     private Bullet bullet = null;
 
-    public Hero(int xIndex, int yIndex) {
-        super(xIndex, yIndex);
+    public Hero(int xIndex, int yIndex, Direction direction) {
+        super(xIndex, yIndex, direction);
     }
 
     /**
@@ -37,12 +37,12 @@ public class Hero extends Tank {
                 bullet2.start();
                 break;
             case RIGHT:
-                Bullet bullet3 = new Bullet(x + 50, y + 28, direction);
+                Bullet bullet3 = new Bullet(x + 60, y + 18, direction);
                 bullets.add(bullet3);
                 bullet3.start();
                 break;
             case LEFT:
-                Bullet bullet4 = new Bullet(x - 20, y + 28, direction);
+                Bullet bullet4 = new Bullet(x - 10, y + 18, direction);
                 bullets.add(bullet4);
                 bullet4.start();
                 break;

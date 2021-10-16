@@ -19,7 +19,7 @@ public class Window extends JFrame {
         this.add(mp);
         Thread thread = new Thread(mp);
         thread.start();
-        this.setSize(800, 600);
+        this.setSize(814, 637);
         this.addKeyListener(mp);//给窗口添加监听器，使其拥有监听功能
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);

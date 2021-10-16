@@ -19,11 +19,13 @@ class MyPanel extends JPanel implements KeyListener, Runnable {
 
     public MyPanel() {
         //初始化英雄坦克
-        hero = new Hero(300, 300);
+        hero = new Hero(300, 300, Direction.UP);
         hero.setSpeed(5);
         //初始化敌方坦克，将其放入集合中去
         for (int i = 0; i < initNumOfEnemy; i++) {
-            EnemyTank enemyTank = new EnemyTank(150 * (i + 1), 50);
+            EnemyTank enemyTank = new EnemyTank(150 * (i + 1), 50, Direction.DOWN, TankType.ONE);
+            Thread thread = new Thread(enemyTank);
+            thread.start();
             enemyTankes.add(enemyTank);
         }
     }
@@ -113,18 +115,18 @@ class MyPanel extends JPanel implements KeyListener, Runnable {
                 g.drawLine(x + 20, y + 40, x + 20, y + 60);
                 break;
             case LEFT:
-                g.drawRect(x - 10, y + 10, 60, 10);
-                g.drawRect(x - 10, y + 40, 60, 10);
-                g.drawRect(x, y + 20, 40, 20);
-                g.drawOval(x + 10, y + 20, 20, 20);
-                g.drawLine(x + 10, y + 30, x - 10, y + 30);
+                g.drawRect(x, y, 60, 10);
+                g.drawRect(x, y + 30, 60, 10);
+                g.drawRect(x + 10, y + 10, 40, 20);
+                g.drawOval(x + 20, y + 10, 20, 20);
+                g.drawLine(x, y + 20, x + 20, y + 20);
                 break;
             case RIGHT:
-                g.drawRect(x - 10, y + 10, 60, 10);
-                g.drawRect(x - 10, y + 40, 60, 10);
-                g.drawRect(x, y + 20, 40, 20);
-                g.drawOval(x + 10, y + 20, 20, 20);
-                g.drawLine(x + 30, y + 30, x + 50, y + 30);
+                g.drawRect(x, y, 60, 10);
+                g.drawRect(x, y + 30, 60, 10);
+                g.drawRect(x + 10, y + 10, 40, 20);
+                g.drawOval(x + 20, y + 10, 20, 20);
+                g.drawLine(x + 40, y + 20, x + 60, y + 20);
                 break;
             default:
                 System.out.println("方向错误");
