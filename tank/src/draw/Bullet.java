@@ -50,10 +50,9 @@ public class Bullet extends Thread {
                     System.out.println("子弹方向错误");
                     break;
             }
-            System.out.println("子弹发射");
             if (this.x >= 800 || this.x <= 0 || this.y >= 600 || this.y <= 0) {
                 //超出范围之后，就从集合中取出该子弹
-                Hero.bullets.remove(this);
+                Tank.bullets.remove(this);
                 break;
             }
         }

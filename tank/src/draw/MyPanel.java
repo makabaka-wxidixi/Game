@@ -13,9 +13,17 @@ import java.util.Vector;
  */
 class MyPanel extends JPanel implements KeyListener, Runnable {
 
-    private Hero hero = null;
-    private Vector<EnemyTank> enemyTankes = new Vector<>();//用来存放敌方坦克
+    private static Hero hero;
+    private static Vector<EnemyTank> enemyTankes = new Vector<>();//用来存放敌方坦克
     private int initNumOfEnemy = 3;//初始化敌方坦克数量
+
+    public static Vector<EnemyTank> getEnemyTankes() {
+        return enemyTankes;
+    }
+
+    public static Hero getHero() {
+        return hero;
+    }
 
     public MyPanel() {
         //初始化英雄坦克
@@ -23,9 +31,9 @@ class MyPanel extends JPanel implements KeyListener, Runnable {
         hero.setSpeed(5);
         //初始化敌方坦克，将其放入集合中去
         for (int i = 0; i < initNumOfEnemy; i++) {
-            EnemyTank enemyTank = new EnemyTank(150 * (i + 1), 50, Direction.DOWN, TankType.ONE);
+            EnemyTank enemyTank = new EnemyTank(200 * (i + 1), 50, Direction.DOWN, TankType.ONE);
             Thread thread = new Thread(enemyTank);
-            thread.start();
+            thread.start();//开启坦克线程
             enemyTankes.add(enemyTank);
         }
     }
@@ -36,7 +44,7 @@ class MyPanel extends JPanel implements KeyListener, Runnable {
         g.fillRect(0, 0, 800, 600);
         drawTank(hero.getxIndex(), hero.getyIndex(), g, hero.getDirection(), Army.HERO);
 
-        if (!hero.bullets.isEmpty()) {
+        if (hero.bullets != null && !hero.bullets.isEmpty()) {//当集合为空时，就说明已经没有子弹了
             for (Bullet bullet : Hero.bullets) {
                 drawBullet(bullet.getX(), bullet.getY(), g, bullet.getDirection());
             }

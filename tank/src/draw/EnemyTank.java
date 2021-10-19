@@ -6,13 +6,14 @@ package draw;
  * @Create 2021-10-10 13:40
  */
 public class EnemyTank extends Tank implements Runnable {
-    private TankType tankType;//默认坦克等级是一级
+    private TankType tankType;//坦克等级
     private int step = initStep();//坦克步长
     private int currStep = 0;//用于记录当前坦克走了多少步
+    private int fireInterval = step * 3;//坦克射击间隔
 
-    //用于初始化坦克的步长
+    //用于初始化坦克的步长，在不碰到墙壁的前提下，走一个步长的距离地方坦克会调整方向
     private int initStep() {
-        int i = (int) (Math.random() * 10 + 30);//范围100-130
+        int i = (int) (Math.random() * 11 + INTERVAL);//范围10-40
         return i;
     }
 
@@ -34,43 +35,35 @@ public class EnemyTank extends Tank implements Runnable {
             switch (getDirection()) {
                 case UP -> {
                     moveUP();
-                    currStep++;
+                    ++currStep;
+                    --fireInterval;
                 }
                 case DOWN -> {
                     moveDown();
-                    currStep++;
+                    ++currStep;
+                    --fireInterval;
                 }
                 case RIGHT -> {
                     moveRight();
-                    currStep++;
+                    ++currStep;
+                    --fireInterval;
                 }
                 case LEFT -> {
                     moveLeft();
-                    currStep++;
+                    ++currStep;
+                    --fireInterval;
                 }
                 default -> {
                     System.out.println("敌方坦克自动掉头的地方出错");
                 }
             }
-            //如果坦克是上下方向
-//            if (getDirection() == Direction.UP || getDirection() == Direction.DOWN) {
-//                if (getxIndex() <= 0 || getxIndex() >= 760 || getyIndex() <= 0 || getyIndex() >= 540) {
-//                    this.changeDirection();
-//                    currStep = 0;//坦克当前步长设置为0
-//                    continue;
-//                }
-//            }
-//            //如果坦克是左右方向
-//            if (getDirection() == Direction.RIGHT || getDirection() == Direction.LEFT) {
-//                if (getxIndex() <= 0 || getxIndex() >= 740 || getyIndex() <= 0 || getyIndex() >= 560) {
-//                    this.changeDirection();
-//                    currStep = 0;//坦克当前步长设置为0
-//                    continue;
-//                }
-//            }
-            if (currStep == step) {
+            if (currStep == step) {//达到步长就调整方向
                 this.changeRandomDirection();//得到随机方向
                 currStep = 0;
+            }
+            if (fireInterval == 0) {//开火
+                fireInterval = 3 * step;
+                this.fire(this.getxIndex(), this.getyIndex(), this.getDirection());
             }
         }
 
